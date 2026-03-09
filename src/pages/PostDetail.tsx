@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { Box, Card, CardContent, Typography, Chip, Button } from '@mui/material'
+import { Card, CardContent, Typography, Chip, Button } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 function PostDetail() {
@@ -19,46 +19,46 @@ function PostDetail() {
   }, [id])
 
   if (!post) {
-    return <Typography sx={{ p: 2 }}>Loading...</Typography>
+    return <Typography style={{ padding: '16px' }}>Загрузка...</Typography>
   }
 
   return (
-    <Box sx={{ p: 2 }}>
+    <div style={{ padding: '16px' }}>
       <Button
         startIcon={<ArrowBackIcon />}
         component={Link}
         to="/"
-        sx={{ mb: 2 }}
+        style={{ marginBottom: '16px' }}
       >
-        Back to Posts
+        Назад к постам
       </Button>
 
-      <Card sx={{ mb: 3, boxShadow: 2, border: '1px solid #e0e0e0', backgroundColor: '#fafafa' }}>
+      <Card style={{ marginBottom: '24px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', border: '1px solid #e0e0e0', backgroundColor: '#fafafa' }}>
         <CardContent>
-          <Typography variant="h5" sx={{ mb: 1 }}>ID: {post.id} - {post.title}</Typography>
-          <Typography variant="body1" sx={{ mb: 2 }}>{post.body}</Typography>
+          <Typography variant="h5" style={{ marginBottom: '8px' }}>ID: {post.id} - {post.title}</Typography>
+          <Typography variant="body1" style={{ marginBottom: '16px' }}>{post.body}</Typography>
           {post.tags && Array.isArray(post.tags) && (
-            <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
               {post.tags.map((tag: string) => (
                 <Chip key={tag} label={tag} size="small" variant="outlined" />
               ))}
-            </Box>
+            </div>
           )}
         </CardContent>
       </Card>
 
-      <Typography variant="h6" sx={{ mb: 2 }}>Comments</Typography>
-      <Box>
+      <Typography variant="h6" style={{ marginBottom: '16px' }}>Комментарии</Typography>
+      <div>
         {comments.map((comment: any) => (
-          <Card key={comment.id} sx={{ mb: 2, boxShadow: 2, backgroundColor: '#f0f8ff' }}>
+          <Card key={comment.id} style={{ marginBottom: '16px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', backgroundColor: '#f0f8ff' }}>
             <CardContent>
               <Typography variant="body1">{comment.body}</Typography>
-              <Typography variant="caption">By user {comment.user.id}</Typography>
+              <Typography variant="caption">Пользователь {comment.user.id}</Typography>
             </CardContent>
           </Card>
         ))}
-      </Box>
-    </Box>
+      </div>
+    </div>
   )
 }
 

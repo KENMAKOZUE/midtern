@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { Box, Card, CardContent, Typography, Chip, TextField, Button } from '@mui/material'
+import { Link, useNavigate } from 'react-router-dom'
+import { Card, CardContent, Typography, Chip, TextField, Button } from '@mui/material'
 
 function Home() {
   const [posts, setPosts] = useState<any[]>([])
   const [userId, setUserId] = useState('')
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetch('https://dummyjson.com/posts')
@@ -13,48 +14,48 @@ function Home() {
   }, [])
 
   return (
-    <Box sx={{ p: 2 }}>
+    <div style={{ padding: '16px' }}>
       <Typography variant="h4" gutterBottom>
-        All Posts
+        Все посты
       </Typography>
-      <Box sx={{ mb: 2 }}>
+      <div style={{ marginBottom: '16px' }}>
         <TextField
-          label="Find posts by user ID"
+          label="Найти посты по ID пользователя"
           value={userId}
           onChange={(e) => setUserId(e.target.value)}
-          sx={{ mr: 1 }}
+          style={{ marginRight: '8px' }}
         />
         <Button
           variant="contained"
           onClick={() => {
             if (userId) {
-              window.location.href = `/user/${userId}/posts`
+              navigate(`/user/${userId}/posts`)
             }
           }}
         >
-          Search
+          Поиск
         </Button>
-      </Box>
-      <Box>
+      </div>
+      <div>
         {posts.map((post: any) => (
           <Link key={post.id} to={`/post/${post.id}`} style={{ textDecoration: 'none' }}>
-            <Card sx={{ mb: 2, boxShadow: 2, border: '1px solid #e0e0e0', backgroundColor: '#fafafa', cursor: 'pointer', '&:hover': { boxShadow: 4 } }}>
+            <Card style={{ marginBottom: '16px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', border: '1px solid #e0e0e0', backgroundColor: '#fafafa', cursor: 'pointer' }}>
               <CardContent>
-                <Typography variant="h6" sx={{ mb: 1 }}>ID: {post.id} - {post.title}</Typography>
-                <Typography variant="body2" sx={{ mb: 1.5 }}>{post.body}</Typography>
+                <Typography variant="h6" style={{ marginBottom: '8px' }}>ID: {post.id} - {post.title}</Typography>
+                <Typography variant="body2" style={{ marginBottom: '12px' }}>{post.body}</Typography>
                 {post.tags && Array.isArray(post.tags) && (
-                  <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap', mt: 1 }}>
+                  <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', marginTop: '8px' }}>
                     {post.tags.map((tag: string) => (
                       <Chip key={tag} label={tag} size="small" variant="outlined" />
                     ))}
-                  </Box>
+                  </div>
                 )}
               </CardContent>
             </Card>
           </Link>
         ))}
-      </Box>
-    </Box>
+      </div>
+    </div>
   )
 }
 
