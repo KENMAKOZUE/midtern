@@ -10,7 +10,7 @@ function UserPosts() {
   useEffect(() => {
     fetch(`https://dummyjson.com/posts/user/${userId}`)
       .then(res => res.json())
-      .then(data => setPosts(data.items))
+      .then(data => setPosts(data.posts))
   }, [userId])
 
   return (

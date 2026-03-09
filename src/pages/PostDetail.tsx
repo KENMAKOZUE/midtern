@@ -15,7 +15,7 @@ function PostDetail() {
 
     fetch(`https://dummyjson.com/posts/${id}/comments`)
       .then(res => res.json())
-      .then(data => setComments(data.result))
+      .then(data => setComments(data.comments))
   }, [id])
 
   if (!post) {
